@@ -1,4 +1,11 @@
-class rabin_carp_string{
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class rabin_carp_vector_int{
 
     public:
     const int p = 31;
@@ -137,7 +144,7 @@ class rabin_carp_string{
             
             int length = mid;
             
-            vector<int> hash_list=computeHashListOfVector(shortest, length);
+            vector<int> hash_list=computeHashListOfSubVector(shortest, length);
             
             bool all_string_common_lcs=true;
             for(int i=0;i<paths.size();i++){ //for each vector

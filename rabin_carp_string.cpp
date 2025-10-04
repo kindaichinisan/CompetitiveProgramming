@@ -1,3 +1,9 @@
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
 class rabin_carp_string{
 
     public:
