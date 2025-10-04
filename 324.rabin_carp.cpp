@@ -59,7 +59,6 @@ int32_t main() {
 		cout << 0 << '\n';
 	}
 
-
 	for (int i = 1; i + m <= n; i++) {
 		// remove last character
 		text_hash = (text_hash - (text[i - 1] - 'a' + 1) + mod) % mod;
