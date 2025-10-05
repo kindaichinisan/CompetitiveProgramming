@@ -62,7 +62,7 @@ vector<Point> convex_hull(vector<Point> points) {
 	for (int i = 0; i < up.size(); i++) {
 		points.push_back(up[i]);
 	}
-	for (int i = 0; i < up.size(); i++) {
+	for (int i = 0; i < down.size(); i++) {
 		points.push_back(down[i]);
 	}
 
