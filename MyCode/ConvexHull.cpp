@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//can work with repeated pt. answer wont have repeated pts.
 class ConvexHull{
 
     public:
