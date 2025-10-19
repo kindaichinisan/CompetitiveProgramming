@@ -21,3 +21,8 @@ Make cmd (instead of powershell) default terminal. as current task.json set to c
 2. Type Terminal: Select Default Profile
 3. Choose Command Prompt
 4. Then open a new terminal — it will use cmd.exe
+
+## 2 Make VSC work with freopen in.txt, out.txt (files in same directory as cpp)
+when you run the compiled program in VS Code, the current working directory is usually not the folder containing your .cpp file. freopen("in.txt", "r", stdin) looks for the file in the current working directory. By default, tasks (from tasks.json) use the folder you opened in VS Code as the CWD. "D:\\WJ_git\\CompetitiveProgramming"
+
+In tasks.json, add "options": { "cwd": "${fileDirname}" }. "D:\\WJ_git\\CompetitiveProgramming\\CompetitiveProgramming_Exercises"
