@@ -105,8 +105,8 @@ int main(){
     int n, m, x, y;
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
 #endif
     cin>>n>>m>>x>>y;
 

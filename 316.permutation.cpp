@@ -56,12 +56,26 @@ int32_t main() {
 	memset(dp, 0, sizeof(dp));
 
 	dp[n][0] = 1;
+	// cout<<"dp"<<endl;
+	// for(int i=0;i<=n;i++){
+	// 	for(int j=0;j<n;j++){
+	// 		cout<<dp[i][j]<<" ";
+	// 	}
+	// 	cout<<endl;
+	// }
 
 	for (int i = n - 1; i > 0; i--) {
 
 		for (int j = 1; j <= n; j++) {
 			dp[i + 1][j] += dp[i + 1][j - 1];
 		}
+		// cout<<"dp prefixsum"<<endl;
+		// for(int i=0;i<=n;i++){
+		// 	for(int j=0;j<n;j++){
+		// 		cout<<dp[i][j]<<" ";
+		// 	}
+		// 	cout<<endl;
+		// }
 
 		for (int s = 0; s <= n; s++) {
 			int g = (n - i - s);
@@ -70,10 +84,29 @@ int32_t main() {
 			if (str[i - 1] == '<') {
 				dp[i][s] = dp[i + 1][s + g - 1] -
 				           (s == 0 ? 0 : dp[i + 1][s - 1]);
+				
+				// cout<<"dp<"<<s<<" "<<g<<endl;
+				// for(int i=0;i<=n;i++){
+				// 	for(int j=0;j<n;j++){
+				// 		cout<<dp[i][j]<<" ";
+				// 	}
+				// 	cout<<endl;
+				// }
 			}
 			else {
-				dp[i][s] = dp[i + 1][s - 1];
+
+				if(s>0){
+					dp[i][s] = dp[i + 1][s - 1];
+				}
+				// cout<<"dp>"<<s<<" "<<g<<" "<<s-1<<" "<<dp[i + 1][s - 1]<<endl;
+				// for(int i=0;i<=n;i++){
+				// 	for(int j=0;j<n;j++){
+				// 		cout<<dp[i][j]<<" ";
+				// 	}
+				// 	cout<<endl;
+				// }
 			}
+			
 			dp[i][s] %= mod;
 		}
 
