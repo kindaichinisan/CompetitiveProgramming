@@ -1,6 +1,6 @@
-.vscode/tasks.json
 *.exe
 out.txt
 CompetitiveProgramming_Exercises/in.txt
 input.txt
 output.txt
+CompetitiveProgramming_Exercises/030.Count_Primes.cpp
