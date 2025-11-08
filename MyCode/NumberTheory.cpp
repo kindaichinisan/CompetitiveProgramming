@@ -13,6 +13,7 @@ class NumberTheory{
     }
 
     //prime sieve: O(N*lg(lg(N)))
+    // return a bool vector that is true for prime
     vector<bool> primeSieve(long long N){
 
         using ll=long long;
