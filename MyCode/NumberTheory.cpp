@@ -18,6 +18,14 @@ class NumberTheory{
         return gcd_recursive(b, a%b);
     }
 
+    int gcd(vector<int> nums){
+        int g=0;
+        for(int i=0;i<nums.size();i++){
+            g=gcd(g, nums[i]);
+        }
+        return g;
+    }
+
     // Extended Euclid's Algorithm ax + by = gcd(a,b). Find (x, y)
     vector<int> extendedGCD(int a,int b){
 
@@ -54,6 +62,20 @@ class NumberTheory{
         return ans;
     }
 
+    // You are given two positive numbers a and b. You need to find the maximum valued integer x such that:
+    // - x divides a i.e. a % x = 0
+    // - x and b are co-prime i.e. gcd(x, b) = 1
+    //keep reducing a by dividing by gcd(a,b) so that a and b will be coprime.
+    int gcd_reduction(int a, int b){
+        
+        int g;
+        do{
+            g=gcd(a, b);
+            a/=g;
+        }while(g>1);
+
+        return a;
+    }
 
     int lcm(int a, int b) {
         return a / gcd(a, b) * b; // careful with overflow
