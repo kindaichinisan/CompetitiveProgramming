@@ -1,3 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+
 class NumberTheory{
 
     // iterative (a>=b)
@@ -78,7 +81,7 @@ class NumberTheory{
     }
 
     int lcm(int a, int b) {
-        return a / gcd(a, b) * b; // careful with overflow
+        return a * b/ gcd(a, b) ; // careful with overflow
     }
 
     //prime sieve: O(N*lg(lg(N)))
@@ -94,7 +97,7 @@ class NumberTheory{
         //start from 3 and mark all multiples of given i (prime) as not prime
         for(ll i=2; i<=N; i++){	
             if(sieve[i]){ //if not marked as non-prime, then is prime
-                for(ll j = i*i; j<=N; j = j + i){
+                for(ll j = i*i; j<=N; j = j + i){ //going thru multiple of i
                     //marking j as not prime
                     sieve[j] = false;
                 }
@@ -154,4 +157,5 @@ class NumberTheory{
             //cout << n <<"^"<< 1 <<endl;
         }
     }
+
 };
