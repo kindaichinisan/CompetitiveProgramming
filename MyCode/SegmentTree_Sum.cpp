@@ -98,9 +98,11 @@ class SegmentTree_Sum{
 };
 
 //usage
-// vector<int> v={1,2, 3, 4, 5, 6, 7, 8};
+// vector<int> v={1, 2, 3, 4, 5, 6, 7, 8};
 // SegmentTree tree;
 // tree.init(v.size());
 // tree.build(v);
-// tree.query(0, 4);
-// tree.update(4, 10);
+// tree.query(0, 4); => returns 15
+// tree.update(4, 10); => leaf_node={1, 2, 3, 4, 10, 6, 7, 8};
+// start, ending, index is v index
+// node is tree idx
