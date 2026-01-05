@@ -44,6 +44,8 @@
 // 1 <= nums[i] <= 105
 // 1 <= k <= 109
 
+// https://leetcode.com/problems/minimum-subarray-length-with-distinct-sum-at-least-k/description/
+
 #define ll long long
 
 class Solution {
