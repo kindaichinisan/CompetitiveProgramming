@@ -48,43 +48,73 @@
 
 // https://leetcode.com/problems/find-maximum-value-in-a-constrained-sequence/description/
 
+// #define ll long long
+// class Solution {
+// public:
+//     int findMaxVal(int n, vector<vector<int>>& restrictions, vector<int>& diff) {
+
+//         ll maxV=INT_MIN;
+//         map<int, int> res;
+
+//         int m=restrictions.size();
+//         for(int i=0;i<m;i++){
+//             res[restrictions[i][0]]=restrictions[i][1];
+//         }
+//         vector<ll> ps(n+1,0LL);
+//         int start=0;
+//         for(int i=0;i<n-1;i++){
+//             ps[i+1]=ps[i]+diff[i];
+
+//             if(res.count(i+1)){
+//                 if(ps[i+1]>res[i+1]){
+//                     ps[i+1]=res[i+1];
+
+//                     for(int j=i;j>=0;j--){ //this part is slow. to optimize
+//                         int temp=ps[j+1]+diff[j];
+//                         if(temp<ps[j]){
+//                             ps[j]=temp;
+//                         }
+//                         else{
+//                             break;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+
+//         maxV=*max_element(ps.begin(), ps.end());
+
+//         return maxV;
+        
+//     }
+// };
+
+//better soln using 2 main for loop (1 from right to left, 1 from left to right)
+https://leetcode.com/problems/find-maximum-value-in-a-constrained-sequence/solutions/7462669/greedy-and-looking-into-future-2-passes-2nl5s/
 #define ll long long
 class Solution {
 public:
     int findMaxVal(int n, vector<vector<int>>& restrictions, vector<int>& diff) {
 
-        ll maxV=INT_MIN;
-        map<int, int> res;
-
         int m=restrictions.size();
+
+        vector<int> res(n, 1e7);
+
         for(int i=0;i<m;i++){
             res[restrictions[i][0]]=restrictions[i][1];
         }
-        vector<ll> ps(n+1,0LL);
-        int start=0;
-        for(int i=0;i<n-1;i++){
-            ps[i+1]=ps[i]+diff[i];
 
-            if(res.count(i+1)){
-                if(ps[i+1]>res[i+1]){
-                    ps[i+1]=res[i+1];
-
-                    for(int j=i;j>=0;j--){ //this part is slow. to optimize
-                        int temp=ps[j+1]+diff[j];
-                        if(temp<ps[j]){
-                            ps[j]=temp;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
+        for(int i=n-2;i>=0;i--){
+            res[i]=min(res[i], res[i+1]+diff[i]);
         }
 
-        maxV=*max_element(ps.begin(), ps.end());
+        res[0]=0;
+        for(int i=0;i<n-1;i++){
+            res[i+1]=min(res[i+1], res[i]+diff[i]);
+        }
 
-        return maxV;
+        int ans=*max_element(res.begin(), res.end());
         
+        return ans;
     }
 };
