@@ -41,7 +41,7 @@ class LongestIncreasingNumber{
         SegmentTree_Max tree;
         tree.init(n);
         for(int i=0;i<n;i++){
-            int idx=vec[i].second();
+            int idx=vec[i].second;
             
             int max_vle=tree.query(0, idx-1);
 
@@ -73,7 +73,7 @@ class LongestIncreasingNumber{
         SegmentTree_Max tree;
         tree.init(n);
         for(int i=0;i<n;i++){
-            int idx=n-vec[i].second(); //get its original index
+            int idx=n-vec[i].second; //get its original index
             
             int max_vle=tree.query(0, idx-1);
 
