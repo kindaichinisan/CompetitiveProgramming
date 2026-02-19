@@ -2,10 +2,9 @@
 
 using namespace std;
 
-class TreeAlgorithm{
+class TreeAlgorithm_Heap{
 
-    const int N = 1e5+1;
-    const int M=20;
+    const int M = 20;
 
     void readEdgeList(int n, vector<vector<int>>& edges){
         for(int i=0;i<n-1;i++){
@@ -15,7 +14,7 @@ class TreeAlgorithm{
         }
     }
 
-    void readEdgeListIntoAdjacencyList(vector<vector<int>> edges, vector<int> gr[N]){
+    void readEdgeListIntoAdjacencyList(vector<vector<int>> edges, vector<vector<int>>& gr){
         for(int i=0;i<edges.size();i++){
             int u=edges[i][0];
             int v=edges[i][1];
@@ -25,7 +24,7 @@ class TreeAlgorithm{
         }
     }
 
-    void printEdgeList(vector<vector<int>> edges){
+    void printEdgeList(const vector<vector<int>>& edges){
         for(int i=0;i<edges.size();i++){
             int u=edges[i][0];
             int v=edges[i][1];
@@ -34,13 +33,13 @@ class TreeAlgorithm{
         }
     }
 
-    void printParent_1D(int n, int Par[N]){
+    void printParent_1D(int n, const vector<int>& Par){
         for(int i=1;i<=n;i++){
             cout<<"Par["<<i<<"]: "<<Par[i]<<endl;
         }
     }
 
-    void printParent_2D(int n, int Par[N][M]){
+    void printParent_2D(int n, const vector<vector<int>>& Par){
         for(int i=1;i<=n;i++){
 
             cout<<i<<" ";
@@ -52,7 +51,7 @@ class TreeAlgorithm{
         }
     }
 
-    void printTree(int n, int tree[N]){
+    void printTree(int n, const vector<int>& tree){
         for(int i=1;i<=n;i++){
             cout<<"tree["<<i<<"]: "<<tree[i]<<endl;
         }
@@ -64,14 +63,7 @@ class TreeAlgorithm{
     //assumption: dep[0]=0, tree[0:N]=0
     //Par is 1D array (non-binary lifting)
     //immediate parent (1D parent)
-    // const int N=100001;
-    // vector<int> gr[N];
-    // int Par[N];
-    // int dep[N];
-    // int tree[N];
-    // dep[0]=0;
-    // memset(tree,0,N*sizeof(int));
-    int dfs_1D(int cur, int par, vector<int> gr[N], int Par[N], int dep[N], int tree[N]) {
+    int dfs_1D(int cur, int par, const vector<vector<int>>& gr, vector<int>& Par, vector<int>& dep, vector<int>& tree) {
         dep[cur] = dep[par] + 1;
         Par[cur] = par;
         tree[cur]=1;
@@ -86,18 +78,7 @@ class TreeAlgorithm{
     }
         
     //parent sparse table (2D parent)
-    // const int N=100001;
-    // const int M=20;
-    // vector<int> gr[N];
-    // int Par[N][M];
-    // int dep[N];
-    // int tree[N];
-    // dep[0]=0;
-    // memset(tree,0,N*sizeof(int));
-    // using this may have segment fault due to stack memory overflow ~10MB. Normal stack allocation is 1MB.
-    // soln is to use global variables (stored in static memory instead of stack memory).
-    // another soln is to use heap memory.
-    int dfs_2D(int cur, int par, vector<int> gr[N], int Par[N][M], int dep[N], int tree[N]) {
+    int dfs_2D(int cur, int par, const vector<vector<int>>& gr, vector<vector<int>>& Par, vector<int>& dep, vector<int>& tree) {
         dep[cur] = dep[par] + 1;
 
         Par[cur][0] = par;
@@ -115,7 +96,7 @@ class TreeAlgorithm{
         return tree[cur];
     }
 
-    int LCA_1D(int u, int v, int dep[N], int Par[N]) {
+    int LCA_1D(int u, int v, const vector<int>& dep, const vector<int>& Par) {
         if (u == v) return u;
 
         if (dep[u] < dep[v]) swap(u, v);
@@ -137,7 +118,7 @@ class TreeAlgorithm{
         return u;
     }
 
-    int LCA_2D(int u, int v, int dep[N], int Par[N][M]) {
+    int LCA_2D(int u, int v, const vector<int>& dep, const vector<vector<int>>& Par) {
         
         if (u == v) return u;
         if (dep[u] < dep[v]) swap(u, v);
@@ -165,31 +146,18 @@ class TreeAlgorithm{
     }
 };
 
-//int Par[N] will be modified as it is array (pass by reference)
-//vector<int> a will not be modified as it is vector. (pass by value)
 //how to use 2D
-// const int N = 1e5+1;
-// const int M = 20;
-// int n; //number of nodes
-// vector<vector<int>> edges; //edge list
-// vector<int> gr[N];
-// int Par[N][M];
-// int tree[N];
-// int dep[N];
-// memset(tree, 0, sizeof(tree));
-// dep[0]=0;
+// vector<vector<int>> gr(n+1, vector<int>());
+// vector<vector<int>> Par(n+1,vector<int>(M,0));
+// vector<int> dep(n+1,0);
+// vector<int> tree(n+1,0);
 // readEdgeListIntoAdjacencyList(edges, gr);
-// dfs_2D(1, 0, gr, Par, tree);
+// dfs_2D(1, 0, gr, Par, dep, tree);
 
 //how to use 1D
-// const int N = 1e5+1;
-// int n; //number of nodes
-// vector<vector<int>> edges; //edge list
-// vector<int> gr[N];
-// int Par[N];
-// int tree[N];
-// int dep[N];
-// memset(tree, 0, sizeof(tree));
-// dep[0]=0;
+// vector<vector<int>> gr(n+1, vector<int>());
+// vector<int> Par(n+1,0);
+// vector<int> dep(n+1,0);
+// vector<int> tree(n+1,0);
 // readEdgeListIntoAdjacencyList(edges, gr);
-// dfs_1D(1, 0, gr, Par, tree);
+// dfs_1D(1, 0, gr, Par, dep, tree);
