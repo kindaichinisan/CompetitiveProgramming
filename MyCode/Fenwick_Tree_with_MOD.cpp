@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+#define MOD 1000000007
+
 template<typename T>
 class Fenwick_Tree{
     vector<T> fn;
@@ -19,6 +21,7 @@ class Fenwick_Tree{
         idx++; //1-based index
         while(idx<n){
             fn[idx]+=vle;
+            fn[idx]%=MOD;
             idx +=(idx & (-idx)); //last set bit
         }
     }
@@ -34,13 +37,14 @@ class Fenwick_Tree{
         T ans=0;
         while(x){
             ans+=fn[x];
+            ans%=MOD;
             x -=(x & (-x)); //last set bit
         }
         return ans;
     }
 
     T sum(int l, int r){
-        return sum(r) - sum(l-1);
+        return ((sum(r) - sum(l-1))%MOD+MOD)%MOD;
     }
 
     void printTree(){
