@@ -66,35 +66,46 @@
 
 class Solution {
 public:
+
+    struct Node {
+        int or_val;
+        int cnt;
+        int max_val;
+    };
     long long countGoodSubarrays(vector<int>& nums) {
         int n=nums.size();
 
-        vector<vector<int>> prev;
+        vector<Node> prev;
+        prev.reserve(32);
         long long ans=0;
         for(int i=0;i<n;i++){
             int num=nums[i];
 
-            vector<vector<int>> cur;
+            vector<Node> cur;
+            cur.reserve(32);
             cur.push_back({num,1,num});
-            ans+=1;
             for(int j=0;j<prev.size();j++){
-                int or_vle=num | prev[j][0];
-                int cnt=prev[j][1];
-                int max_vle=max(num,prev[j][2]);
+                int or_vle=cur.back().or_val | prev[j].or_val;
+                int cnt=prev[j].cnt;
+                int max_vle=max(cur.back().max_val,prev[j].max_val);
 
-                if(max_vle==or_vle){
-                    ans+=cnt;
-                }
-                if(cur.back()[0]==or_vle){
-                    cur.back()[1]+=cnt;
-                    cur.back()[2]=max_vle;
+                if((max_vle==cur.back().max_val) && (or_vle==cur.back().or_val)){
+                    cur.back().cnt+=cnt;
                 }
                 else{
                     cur.push_back({or_vle,cnt,max_vle});
                 }
             }
 
+            for(int j=0;j<cur.size();j++){
+                if(cur[j].or_val==cur[j].max_val){
+                    ans+=cur[j].cnt;
+                }
+            }
+
             prev=move(cur);
+
+            // cout<<prev.size()<<endl;
 
         }
 
