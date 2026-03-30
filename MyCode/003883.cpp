@@ -60,6 +60,7 @@
 // 0 <= digitSum[i] <= 50
 
 // https://leetcode.com/problems/count-non-decreasing-arrays-with-given-digit-sums/description/
+// change to use 2 fenwick tree
 
 #define MOD 1000000007
 #define ARR_MAX 5000
@@ -78,7 +79,8 @@ public:
         //n is max vle or arr.size()-1
         void init(int n){
             this->n = n+1; //change from 0-idx to 1-idx
-            fn.resize(this->n,0);
+            // fn.resize(this->n,0);
+            fn.assign(this->n,0);
         }
 
         //update O(log(n))
@@ -144,26 +146,31 @@ public:
             sum[i]=ds(i);
         }
         
-        vector<Fenwick_Tree<ll>> ft(n, Fenwick_Tree<ll>());
+        // vector<Fenwick_Tree<ll>> ft(n, Fenwick_Tree<ll>());
+        // ft[0].init(ARR_MAX+1); //for number from 0 to 5000
 
-        ft[0].init(ARR_MAX+1); //for number from 0 to 5000
+        Fenwick_Tree<ll> prev, curr;
+        prev.init(ARR_MAX+1);
+
         for(int i=0;i<=ARR_MAX;i++){ //5000
             if(digitSum[0]==sum[i]){
-                ft[0].add(i,1);
-                cout<<i<<endl;
+                prev.add(i,1);
             }
         }
         for(int j=1;j<n;j++){ //1000
-            ft[j].init(ARR_MAX+1);
+            curr.init(ARR_MAX+1);
             for(int i=0;i<=ARR_MAX;i++){ //5000
                 if(digitSum[j]==sum[i]){
-                    int num=ft[j-1].sum(i);
-                    ft[j].add(i,num);
+                    int num=prev.sum(i);
+                    curr.add(i,num);
                 }
             }
+
+            // prev=curr;
+            swap(prev, curr);
         }
         
-        int ans=ft[n-1].sum(ARR_MAX);
+        int ans=prev.sum(ARR_MAX);
                 
         return ans;
     }
