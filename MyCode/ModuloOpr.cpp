@@ -49,7 +49,7 @@ class ModuloOpr{
     // O(n)
     vector<int> calculateFactorial(int n, int p){
         vector<int> fact(n+1,1);
-        for(int i=1;i<=n, i++){
+        for(int i=1;i<=n; i++){
             fact[i]=mulm(fact[i-1], i, p);
         }
         return fact;
@@ -59,6 +59,16 @@ class ModuloOpr{
     int ncr(int n, int r, int p){
         if (r < 0 || r > n) return 0;
         vector<int> fact = calculateFactorial(n, p);
+        int denom = mulm(fact[r], fact[n - r], p);
+        return mulm(fact[n], invm(denom, p), p);
+    }
+
+    //precompute fact and pass in
+    //nCr = n!/(r! * (n-r)!)
+    // O(n + log(p))
+    // vector<int> fact = calculateFactorial(n, p);
+    int ncr(int n, int r, int p, vector<int>& fact){
+        if (r < 0 || r > n) return 0;
         int denom = mulm(fact[r], fact[n - r], p);
         return mulm(fact[n], invm(denom, p), p);
     }
